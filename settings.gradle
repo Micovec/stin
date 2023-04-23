@@ -1,0 +1,4 @@
+rootProject.name = 'STIN-semestral'
+include 'server'
+include 'client'
+
