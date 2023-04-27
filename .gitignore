@@ -93,3 +93,6 @@
 
 # Cache of project
 **/.gradletasknamecache
+
+#SQLite
+**/*.sqlite
