@@ -8,11 +8,17 @@
         <h1>Payment</h1>
         <form th:action="@{/payment}" method="post" autocomplete="off">
             <label for="amount">Amount:</label>
-            <input type="amount" name="amount" id="amount"/>
-            <span>Currency:</span>
-            <select name="currencyCode">
+            <input type="number" name="amount" id="amount"/>
+            <label for="availableCurrency">Currency:</label>
+            <select name="currencyCode" id="availableCurrency">
                 <option th:each="currency: ${currencies}">
                     <span th:text="${currency.code}"></span>
+                </option>
+            </select>
+            <label for="currencyCode">Account currency:</label>
+            <select name="targetCurrencyCode" id="currencyCode">
+                <option th:each="account: ${accountCurrencies}">
+                    <span th:text="${account.currencyCode}"></span>
                 </option>
             </select>
             <input type="submit" value="Pay"/>

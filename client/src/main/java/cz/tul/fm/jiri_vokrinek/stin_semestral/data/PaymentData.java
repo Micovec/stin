@@ -17,9 +17,9 @@ public class PaymentData {
         this.backendUrl = backedUrl + "/payment";
     }
 
-    public PaymentDto pay(String email, double amount, String currencyCode) {
+    public PaymentDto pay(String email, double amount, String currencyCode, String targetCurrencyCode) {
         RestTemplate template = new RestTemplate();
-        ResponseEntity<PaymentDto> paymentDto = template.postForEntity(backendUrl, new PaymentRequestDto(email, amount, currencyCode), PaymentDto.class);
+        ResponseEntity<PaymentDto> paymentDto = template.postForEntity(backendUrl, new PaymentRequestDto(email, amount, currencyCode, targetCurrencyCode), PaymentDto.class);
         return paymentDto.getBody();
     }
 

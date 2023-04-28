@@ -13,7 +13,10 @@ public class Payment {
     private double amount;
 
     @OneToOne
-    private Currency currency;
+    private Currency sourceCurrency;
+
+    @OneToOne
+    private Currency targetCurrency;
 
     @OneToOne
     private User user;
@@ -26,9 +29,10 @@ public class Payment {
 
     protected Payment() {}
 
-    public Payment(User user, double amount, Currency currency, boolean valid) {
+    public Payment(User user, double amount, Currency sourceCurrency, Currency targetCurrency, boolean valid) {
         this.amount = amount;
-        this.currency = currency;
+        this.sourceCurrency = sourceCurrency;
+        this.targetCurrency = targetCurrency;
         this.user = user;
         this.date = LocalDate.now();
         this.valid = valid;
@@ -42,8 +46,12 @@ public class Payment {
         return user;
     }
 
-    public Currency getCurrency() {
-        return currency;
+    public Currency getSourceCurrency() {
+        return sourceCurrency;
+    }
+
+    public Currency getTargetCurrency() {
+        return targetCurrency;
     }
 
     public double getAmount() {

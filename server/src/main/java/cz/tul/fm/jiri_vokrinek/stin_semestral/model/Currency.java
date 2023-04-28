@@ -35,4 +35,9 @@ public class Currency {
     public double getRate() {
         return rate;
     }
+
+    public double makeExchange(double amount, Currency destinationCurrency) {
+        double currencyRate = rate / destinationCurrency.getRate();
+        return amount * currencyRate;
+    }
 }

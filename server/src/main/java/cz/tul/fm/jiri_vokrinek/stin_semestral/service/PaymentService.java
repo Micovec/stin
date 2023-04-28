@@ -38,20 +38,27 @@ public class PaymentService extends AbstractCrudService<Integer, Payment, Paymen
     public Payment pay(PaymentRequest paymentRequest) {
         User user = userService.readById(paymentRequest.email()).orElseThrow();
         Currency currency = currencyService.readById(paymentRequest.currencyCode()).orElseThrow();
+        Currency targetCurrency = currencyService.readById(paymentRequest.targetCurrencyCode()).orElseThrow();
 
-        Optional<Account> accountOpt = accountService.getByUserAndCurrency(user, currency);
-        Account account = accountOpt.orElseGet(() -> accountService.create(new Account(user, currency)));
+        Optional<Account> accountOpt = accountService.getByUserAndCurrency(user, targetCurrency);
+        if (accountOpt.isEmpty()) {
+            return create(new Payment(user, paymentRequest.amount(), currency, targetCurrency, false));
+        }
+
+        double actualAmount = currency.makeExchange(paymentRequest.amount(), targetCurrency);
+
+        Account account = accountOpt.get();
 
         user.addAccount(account);
         userService.update(user);
 
         boolean valid = account.getBalance() + paymentRequest.amount() >= 0;
         if (valid) {
-            account.add(paymentRequest.amount());
+            account.add(actualAmount);
             accountService.update(account);
         }
 
-        return create(new Payment(user, paymentRequest.amount(), currency, valid));
+        return create(new Payment(user, paymentRequest.amount(), currency, targetCurrency, valid));
     }
 
     public Collection<Payment> getUserPayments(User user) {
