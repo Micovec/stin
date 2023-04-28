@@ -37,7 +37,6 @@ public abstract class AbstractCrudService<K, E, REPOSITORY extends JpaRepository
      * @param entity entity to be stored
      * @throws EntityStateException if an entity with the same key is already stored
      */
-    @Transactional
     public E create(E entity) throws EntityStateException {
         if (exists(entity))
             throw new EntityStateException(entity);

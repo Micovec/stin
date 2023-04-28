@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <h1>Payment</h1>
+        <form th:action="@{/payment}" method="post" autocomplete="off">
+            <label for="amount">Amount:</label>
+            <input type="amount" name="amount" id="amount"/>
+            <span>Currency:</span>
+            <select name="currencyCode">
+                <option th:each="currency: ${currencies}">
+                    <span th:text="${currency.code}"></span>
+                </option>
+            </select>
+            <input type="submit" value="Pay"/>
+        </form>
+    </body>
+</html>

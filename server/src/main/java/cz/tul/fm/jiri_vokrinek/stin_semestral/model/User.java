@@ -1,9 +1,9 @@
 package cz.tul.fm.jiri_vokrinek.stin_semestral.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "user")
 public class User implements Serializable {
@@ -25,6 +25,9 @@ public class User implements Serializable {
 
     private String secret;
 
+    @OneToMany(targetEntity = Account.class, cascade = CascadeType.REMOVE)
+    private Set<Account> accounts = new HashSet<>();
+
     protected User() {}
 
     public User(String email, String name, String surname, String password) {
@@ -33,6 +36,10 @@ public class User implements Serializable {
         this.surname = surname;
         this.role = "USER";
         this.password = password;
+    }
+
+    public void addAccount(Account account) {
+        accounts.add(account);
     }
 
     public String getEmail() {
