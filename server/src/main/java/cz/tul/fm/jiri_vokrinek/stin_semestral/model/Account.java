@@ -33,6 +33,10 @@ public class Account {
         return id;
     }
 
+    public Currency getCurrency() {
+        return currency;
+    }
+
     public double getBalance() {
         return balance;
     }
