@@ -5,7 +5,7 @@ import cz.tul.fm.jiri_vokrinek.stin_semestral.model.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserService extends AbstractCrudService<String, User, UserJpaRepository> /*implements UserDetailsService*/ {
+public class UserService extends AbstractCrudService<String, User, UserJpaRepository> {
     /**
      * Protected constructor to force extending services to define their repository
      *

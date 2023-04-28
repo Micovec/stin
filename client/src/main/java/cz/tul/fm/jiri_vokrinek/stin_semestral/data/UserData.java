@@ -3,7 +3,7 @@ package cz.tul.fm.jiri_vokrinek.stin_semestral.data;
 import cz.tul.fm.jiri_vokrinek.stin_semestral.dto.UserLoginInfoDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
+//import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,12 +12,9 @@ import java.util.Optional;
 @Component
 public class UserData {
 
-    private final WebClient webClient;
-
     private final Map<String, UserLoginInfoDto> userLoginInfoDtoMap;
 
-    public UserData(@Value("${backend_url}") String backedUrl) {
-        webClient = WebClient.create(backedUrl + "/user");
+    public UserData() {
         userLoginInfoDtoMap = new HashMap<>();
 
         fillUserLogins();
