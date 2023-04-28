@@ -1,5 +1,6 @@
 package cz.tul.fm.jiri_vokrinek.stin_semestral.controller;
 
+import cz.tul.fm.jiri_vokrinek.stin_semestral.data.AccountData;
 import cz.tul.fm.jiri_vokrinek.stin_semestral.data.CurrencyData;
 import cz.tul.fm.jiri_vokrinek.stin_semestral.data.PaymentData;
 import cz.tul.fm.jiri_vokrinek.stin_semestral.dto.PaymentDto;
@@ -19,25 +20,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PaymentController {
 
     private final CurrencyData currencyData;
-
     private final PaymentData paymentData;
+    private final AccountData accountData;
 
-    public PaymentController(CurrencyData currencyData, PaymentData paymentData) {
+    public PaymentController(CurrencyData currencyData, PaymentData paymentData, AccountData accountData) {
         this.currencyData = currencyData;
         this.paymentData = paymentData;
+        this.accountData = accountData;
     }
 
     @GetMapping()
     public String getPage(Model model) {
-        model.addAttribute("currencies", currencyData.getAll());
-        return "payment";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal() instanceof CCUserDetails details) {
+            model.addAttribute("currencies", currencyData.getAll());
+            model.addAttribute("accountCurrencies", accountData.getUserAccounts(details.getUsername()));
+
+            return "payment";
+        }
+
+        return "redirect:/";
     }
 
     @PostMapping
     public String pay(@ModelAttribute PaymentRequestDto dto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal() instanceof CCUserDetails details) {
-            PaymentDto paymentDto = paymentData.pay(details.getUsername(), dto.amount, dto.currencyCode);
+            PaymentDto paymentDto = paymentData.pay(details.getUsername(), dto.amount, dto.currencyCode, dto.targetCurrencyCode);
 
             if (paymentDto.valid) {
                 return "redirect:/";

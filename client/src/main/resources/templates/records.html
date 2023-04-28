@@ -8,13 +8,17 @@
     <h1>Payments</h1>
     <table>
       <tr>
+        <th>Date</th>
         <th>Amount</th>
-        <th>Currency code</th>
+        <th>Source currency code</th>
+        <th>Destination currency code</th>
         <th>Passed</th>
       </tr>
       <tr th:each="payment: ${payments}">
+        <td th:text="${payment.date}"></td>
         <td th:text="${payment.amount}"></td>
         <td th:text="${payment.currencyCode}"></td>
+        <td th:text="${payment.targetCurrencyCode}"></td>
         <td th:text="${payment.valid}"></td>
       </tr>
     </table>

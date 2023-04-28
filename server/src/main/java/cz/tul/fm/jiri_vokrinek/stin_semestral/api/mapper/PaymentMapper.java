@@ -12,11 +12,11 @@ import java.util.Collection;
 public class PaymentMapper {
 
     public PaymentRequest paymentRequestDtoToModel(PaymentRequestDto dto) {
-        return new PaymentRequest(dto.email, dto.currencyCode, dto.amount);
+        return new PaymentRequest(dto.email, dto.currencyCode, dto.targetCurrencyCode, dto.amount);
     }
 
     public PaymentDto paymentToDto(Payment payment) {
-        return new PaymentDto(payment.getAmount(), payment.getCurrency().getCode(), payment.getDate(), payment.isValid());
+        return new PaymentDto(payment.getAmount(), payment.getSourceCurrency().getCode(), payment.getTargetCurrency().getCode(), payment.getDate(), payment.isValid());
     }
 
     public Collection<PaymentDto> toDtos(Collection<Payment> payments) {

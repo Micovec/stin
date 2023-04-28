@@ -9,13 +9,16 @@ public class PaymentDto {
 
     public String currencyCode;
 
+    public String targetCurrencyCode;
+
     public LocalDate date;
 
     public boolean valid;
 
-    public PaymentDto(double amount, String currencyCode, LocalDate date, boolean valid) {
+    public PaymentDto(double amount, String currencyCode, String targetCurrencyCode, LocalDate date, boolean valid) {
         this.amount = amount;
         this.currencyCode = currencyCode;
+        this.targetCurrencyCode = targetCurrencyCode;
         this.date = date;
         this.valid = valid;
     }
