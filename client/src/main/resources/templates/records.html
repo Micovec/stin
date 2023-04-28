@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+  </head>
+  <body>
+    <h1>Payments</h1>
+    <table>
+      <tr>
+        <th>Amount</th>
+        <th>Currency code</th>
+        <th>Passed</th>
+      </tr>
+      <tr th:each="payment: ${payments}">
+        <td th:text="${payment.amount}"></td>
+        <td th:text="${payment.currencyCode}"></td>
+        <td th:text="${payment.valid}"></td>
+      </tr>
+    </table>
+  </body>
+</html>

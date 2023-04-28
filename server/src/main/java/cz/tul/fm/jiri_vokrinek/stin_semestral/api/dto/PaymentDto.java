@@ -7,12 +7,15 @@ public class PaymentDto {
 
     public double amount;
 
+    public String currencyCode;
+
     public LocalDate date;
 
     public boolean valid;
 
-    public PaymentDto(double amount, LocalDate date, boolean valid) {
+    public PaymentDto(double amount, String currencyCode, LocalDate date, boolean valid) {
         this.amount = amount;
+        this.currencyCode = currencyCode;
         this.date = date;
         this.valid = valid;
     }

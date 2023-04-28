@@ -42,6 +42,10 @@ public class Payment {
         return user;
     }
 
+    public Currency getCurrency() {
+        return currency;
+    }
+
     public double getAmount() {
         return amount;
     }

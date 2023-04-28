@@ -8,6 +8,7 @@ import cz.tul.fm.jiri_vokrinek.stin_semestral.model.supporting.PaymentRequest;
 import cz.tul.fm.jiri_vokrinek.stin_semestral.model.User;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Component
@@ -51,5 +52,9 @@ public class PaymentService extends AbstractCrudService<Integer, Payment, Paymen
         }
 
         return create(new Payment(user, paymentRequest.amount(), currency, valid));
+    }
+
+    public Collection<Payment> getUserPayments(User user) {
+        return repository.getUserPayments(user.getEmail());
     }
 }
