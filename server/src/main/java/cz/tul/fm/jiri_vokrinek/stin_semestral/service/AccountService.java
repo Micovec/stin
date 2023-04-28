@@ -6,6 +6,7 @@ import cz.tul.fm.jiri_vokrinek.stin_semestral.model.Currency;
 import cz.tul.fm.jiri_vokrinek.stin_semestral.model.User;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Component
@@ -26,5 +27,9 @@ public class AccountService extends AbstractCrudService<Integer, Account, Accoun
 
     public Optional<Account> getByUserAndCurrency(User user, Currency currency) {
         return repository.getAccountByUserAndCurrency(user, currency);
+    }
+
+    public Collection<Account> getUserAccounts(User user) {
+        return repository.getAccountsByUser(user);
     }
 }

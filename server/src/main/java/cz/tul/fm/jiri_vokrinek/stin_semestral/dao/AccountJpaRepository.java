@@ -13,4 +13,6 @@ import java.util.Optional;
 public interface AccountJpaRepository extends JpaRepository<Account, Integer> {
 
     Optional<Account> getAccountByUserAndCurrency(User user, Currency currency);
+
+    List<Account> getAccountsByUser(User user);
 }
