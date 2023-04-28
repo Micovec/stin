@@ -2,7 +2,7 @@ package cz.tul.fm.jiri_vokrinek.stin_semestral.controller;
 
 import cz.tul.fm.jiri_vokrinek.stin_semestral.data.CurrencyData;
 import cz.tul.fm.jiri_vokrinek.stin_semestral.data.PaymentData;
-import cz.tul.fm.jiri_vokrinek.stin_semestral.data.PaymentDto;
+import cz.tul.fm.jiri_vokrinek.stin_semestral.dto.PaymentDto;
 import cz.tul.fm.jiri_vokrinek.stin_semestral.dto.PaymentRequestDto;
 import cz.tul.fm.jiri_vokrinek.stin_semestral.security.CCUserDetails;
 import org.springframework.security.core.Authentication;
@@ -51,5 +51,17 @@ public class PaymentController {
     @GetMapping("/invalid")
     public String getInvalid() {
         return "invalidPayment";
+    }
+
+    @GetMapping("/records")
+    public String showRecords(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal() instanceof CCUserDetails details) {
+            model.addAttribute("payments", paymentData.getPayments(details.getUsername()));
+
+            return "/records";
+        }
+
+        return "redirect:/";
     }
 }

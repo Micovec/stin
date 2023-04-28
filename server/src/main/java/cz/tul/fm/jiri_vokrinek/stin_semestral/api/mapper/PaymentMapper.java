@@ -6,6 +6,8 @@ import cz.tul.fm.jiri_vokrinek.stin_semestral.model.Payment;
 import cz.tul.fm.jiri_vokrinek.stin_semestral.model.supporting.PaymentRequest;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
+
 @Component
 public class PaymentMapper {
 
@@ -14,6 +16,10 @@ public class PaymentMapper {
     }
 
     public PaymentDto paymentToDto(Payment payment) {
-        return new PaymentDto(payment.getAmount(), payment.getDate(), payment.isValid());
+        return new PaymentDto(payment.getAmount(), payment.getCurrency().getCode(), payment.getDate(), payment.isValid());
+    }
+
+    public Collection<PaymentDto> toDtos(Collection<Payment> payments) {
+        return payments.stream().map(this::paymentToDto).toList();
     }
 }

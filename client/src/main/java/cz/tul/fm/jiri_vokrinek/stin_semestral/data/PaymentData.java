@@ -1,5 +1,7 @@
 package cz.tul.fm.jiri_vokrinek.stin_semestral.data;
 
+import cz.tul.fm.jiri_vokrinek.stin_semestral.dto.EmailDto;
+import cz.tul.fm.jiri_vokrinek.stin_semestral.dto.PaymentDto;
 import cz.tul.fm.jiri_vokrinek.stin_semestral.dto.PaymentRequestDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -19,5 +21,11 @@ public class PaymentData {
         RestTemplate template = new RestTemplate();
         ResponseEntity<PaymentDto> paymentDto = template.postForEntity(backendUrl, new PaymentRequestDto(email, amount, currencyCode), PaymentDto.class);
         return paymentDto.getBody();
+    }
+
+    public PaymentDto[] getPayments(String email) {
+        RestTemplate template = new RestTemplate();
+        ResponseEntity<PaymentDto[]> paymentsDtos = template.postForEntity(backendUrl + "/records", new EmailDto(email), PaymentDto[].class);
+        return paymentsDtos.getBody();
     }
 }
