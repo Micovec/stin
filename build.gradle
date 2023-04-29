@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id "jacoco"
+    id "org.sonarqube" version "3.5.0.2730"
 }
 
 group 'cz.tul.fm.jiri_vokrinek.stin_semestral'
@@ -12,6 +14,12 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
 }
 
 test {
