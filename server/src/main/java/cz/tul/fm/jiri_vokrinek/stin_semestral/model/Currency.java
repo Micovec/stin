@@ -36,6 +36,18 @@ public class Currency {
         return rate;
     }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
     public double makeExchange(double amount, Currency destinationCurrency) {
         double currencyRate = rate / destinationCurrency.getRate();
         return amount * currencyRate;
