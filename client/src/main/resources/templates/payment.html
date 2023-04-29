@@ -5,6 +5,7 @@
         <title>Title</title>
     </head>
     <body>
+        <a th:href="@{/}">Index</a>
         <h1>Payment</h1>
         <form th:action="@{/payment}" method="post" autocomplete="off">
             <label for="amount">Amount:</label>
@@ -23,5 +24,7 @@
             </select>
             <input type="submit" value="Pay"/>
         </form>
+
+        <a th:href="@{/payment/records}">Payment records</a>
     </body>
 </html>
