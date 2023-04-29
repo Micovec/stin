@@ -11,9 +11,39 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "stin"
+        property "sonar.projectKey", "Micovec_stin"
+        property "sonar.organization", "micovec"
+        property "sonar.host.url", "https://sonarcloud.io"
+
+    }
+}
+
+subprojects {
+    // In this place needed only for Jacoco plugin.
+    apply plugin: "java"
+
+    // Code coverage analysis for SonarQube.
+    apply plugin: "jacoco"
+
+    jacoco {
+        toolVersion = "0.8.7" // Jacoco does not work without specifying a version.
+    }
+
+    jacocoTestReport {
+        dependsOn test // Tests are required to run before generating the report.
+        reports {
+            xml.required = true
+            csv.required = false
+            html.required = false
+        }
+    }
 }
 
 jacocoTestReport {
