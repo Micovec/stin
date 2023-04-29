@@ -37,6 +37,10 @@ public class Account {
         return currency;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public double getBalance() {
         return balance;
     }
