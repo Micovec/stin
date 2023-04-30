@@ -17,7 +17,6 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
-//@EnableWebSecurity
 public class SpringSecurityConfig{
 
     @Bean
