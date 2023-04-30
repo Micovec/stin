@@ -46,7 +46,7 @@ subprojects {
         afterEvaluate {
             classDirectories.setFrom(files(classDirectories.files.collect {
                 fileTree(dir: it, exclude: [
-                        'server/src/main/java/cz/tul/fm/jiri_vokrinek/stin_semestral/currency/**'
+                        '**/currency/**'
                 ])
             }))
         }
