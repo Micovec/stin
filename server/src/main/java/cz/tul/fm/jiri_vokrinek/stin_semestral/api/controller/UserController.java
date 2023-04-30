@@ -16,9 +16,6 @@ import java.util.Optional;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    private CodeVerifier verifier;
-
     private final UserService userService;
 
     private final UserMapper userMapper;
