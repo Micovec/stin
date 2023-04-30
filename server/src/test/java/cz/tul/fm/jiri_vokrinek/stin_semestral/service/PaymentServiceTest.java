@@ -12,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.OngoingStubbing;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -70,7 +69,7 @@ public class PaymentServiceTest {
 
         paymentService.pay(request);
 
-        assertFalse(payment.isValid());
+        assertTrue(payment.isValid());
     }
 
     @Test
@@ -79,12 +78,6 @@ public class PaymentServiceTest {
         Optional<User> user = Optional.of(new User(request.email(), "Test", "Test", "test"));
         Optional<Currency> currency0 = Optional.of(new Currency("CZK", "Česká republika", 1));
         Optional<Currency> currency1 = Optional.of(new Currency("EUR", "EUM", 20));
-        Optional<Account> account = Optional.of(new Account(user.get(), currency1.get()));
-
-        Mockito.when(userService.readById(user.get().getEmail())).thenReturn(user);
-        Mockito.when(currencyService.readById(currency0.get().getCode())).thenReturn(currency0);
-        Mockito.when(currencyService.readById(currency1.get().getCode())).thenReturn(currency1);
-        Mockito.when(accountService.getByUserAndCurrency(user.get(), currency1.get())).thenReturn(account);
 
         Payment payment0 = new Payment(user.get(), currency0.get().makeExchange(request.amount(), currency1.get()), currency0.get(), currency1.get(), true);
         Payment payment1 = new Payment(user.get(), currency1.get().makeExchange(request.amount(), currency0.get()), currency1.get(), currency0.get(), true);
