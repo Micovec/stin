@@ -43,6 +43,15 @@ subprojects {
             csv.required = false
             html.required = false
         }
+        afterEvaluate {
+            classDirectories.setFrom(files(classDirectories.files.collect {
+                fileTree(dir: it, exclude: [
+                        'cz.tul.fm.jiri_vokrinek.stin_semestral.currency',
+                        'cz.tul.fm.jiri_vokrinek.stin_semestral.config',
+                        'cz.tul.fm.jiri_vokrinek.stin_semestral.security.SpringSecurityConfig'
+                ])
+            }))
+        }
     }
 }
 
