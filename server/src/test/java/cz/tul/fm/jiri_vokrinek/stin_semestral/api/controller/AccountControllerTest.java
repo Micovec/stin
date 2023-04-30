@@ -12,7 +12,6 @@ import cz.tul.fm.jiri_vokrinek.stin_semestral.service.AccountService;
 import cz.tul.fm.jiri_vokrinek.stin_semestral.service.UserService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
