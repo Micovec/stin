@@ -46,9 +46,7 @@ subprojects {
         afterEvaluate {
             classDirectories.setFrom(files(classDirectories.files.collect {
                 fileTree(dir: it, exclude: [
-                        'cz.tul.fm.jiri_vokrinek.stin_semestral.currency',
-                        'cz.tul.fm.jiri_vokrinek.stin_semestral.config',
-                        'cz.tul.fm.jiri_vokrinek.stin_semestral.security.SpringSecurityConfig'
+                        'server/src/main/java/cz/tul/fm/jiri_vokrinek/stin_semestral/currency/**'
                 ])
             }))
         }
