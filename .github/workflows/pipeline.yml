@@ -27,7 +27,7 @@ jobs:
           arguments: build
 
       - name: Zip server with SQLite for deployment
-        run: zip server.zip ./server/build/libs/*.jar ./STIN-semestral.sqlite
+        run: zip -j server.zip ./server/build/libs/*.jar ./STIN-semestral.sqlite
 
       - name: Upload zip file for deployment job
         uses: actions/upload-artifact@v2
