@@ -68,7 +68,7 @@ public class PaymentController {
         if (authentication.getPrincipal() instanceof CCUserDetails details) {
             model.addAttribute("payments", paymentData.getPayments(details.getUsername()));
 
-            return "/records";
+            return "records";
         }
 
         return "redirect:/";
