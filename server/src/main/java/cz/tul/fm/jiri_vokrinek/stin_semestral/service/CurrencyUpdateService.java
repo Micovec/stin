@@ -12,9 +12,9 @@ public class CurrencyUpdateService {
     private final CurrencyService currencyService;
     private final ICurrencyGetter currencyGetter;
 
-    public CurrencyUpdateService(CurrencyService currencyService) {
+    public CurrencyUpdateService(CurrencyService currencyService, ICurrencyGetter currencyGetter) {
         this.currencyService = currencyService;
-        currencyGetter = CurrencyGetterFactory.getCurrencyGetter(CurrencyGetterFactory.Source.CNB);
+        this.currencyGetter = currencyGetter;
     }
 
     @Scheduled(cron = "30 30 14 * * *", zone = "Europe/Prague")
