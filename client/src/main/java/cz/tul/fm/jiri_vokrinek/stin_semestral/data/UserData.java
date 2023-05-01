@@ -31,6 +31,6 @@ public class UserData {
 
     private void fillUserLogins() {
         userLoginInfoDtoMap.put("test@test.test", new UserLoginInfoDto("test@test.test", "test", "PNTLRNRGY6D63VYNWOXPSUEPTCQVAJRF"));
-        userLoginInfoDtoMap.put("jan.novak@email.cz", new UserLoginInfoDto("jan.novak@email.cz", "heslo", "TCBKBM2T7CVAOJ4FID653XAX4KFX7XCO"));
+        userLoginInfoDtoMap.put("jan.novak@email.cz", new UserLoginInfoDto("jan.novak@seznam.cz", "heslo", "TCBKBM2T7CVAOJ4FID653XAX4KFX7XCO"));
     }
 }
