@@ -26,11 +26,17 @@ jobs:
         with:
           arguments: build
 
-      - name: Upload artifact for deployment job
+      - name: Upload server for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: java-app
-          path: '${{ github.workspace }}/build/libs/*.jar'
+          name: java-server
+          path: '${{ github.workspace }}/server/build/libs/*.jar'
+
+      - name: Upload client for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: java-client
+          path: '${{ github.workspace }}/client/build/libs/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
@@ -40,10 +46,15 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Download artifact from build job
+      - name: Download server from build job
         uses: actions/download-artifact@v2
         with:
-          name: java-app
+          name: java-server
+
+      - name: Download client from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: java-client
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
