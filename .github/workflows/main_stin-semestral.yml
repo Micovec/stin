@@ -51,10 +51,10 @@ jobs:
         with:
           name: java-server
 
-      - name: Download client from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: java-client
+      #- name: Download client from build job
+      #  uses: actions/download-artifact@v2
+      #  with:
+      #    name: java-client
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
