@@ -33,6 +33,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: server.zip
+          path: 'server.zip'
 
       - name: Upload client for deployment job
         uses: actions/upload-artifact@v2
@@ -42,7 +43,7 @@ jobs:
 
   analysis:
     runs-on: ubuntu-latest
-    name: Build
+    name: analysis
     steps:
       - uses: actions/checkout@v2
       - name: Setup java
