@@ -1,0 +1,104 @@
+name: Main pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        with:
+          arguments: build
+
+      - name: Zip server with SQLite for deployment
+        run: zip server.zip ./server/build/libs/*.jar ./STIN-semestral.sqlite
+
+      - name: Upload zip file for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: server.zip
+
+      - name: Upload client for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: client.jar
+          path: '${{ github.workspace }}/client/build/libs/*.jar'
+
+  analysis:
+    runs-on: ubuntu-latest
+    name: Build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      - name: Gradle build
+        uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: --refresh-dependencies --stacktrace --scan clean build
+      - name: Sonarqube
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew jacocoTestReport sonarqube --stacktrace -i
+
+  deployServer:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download server from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: server.zip
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'stin-semestral'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_31F40EA37FBF46B191CFC3EA60C9A694 }}
+          package: '*.zip'
+
+  deployClient:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download client from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: client.jar
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'stin-semestral-client'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_EB79C9ACCBC540ECA72D89B89676BA7D }}
+          package: '*.jar'
