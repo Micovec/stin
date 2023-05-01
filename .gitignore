@@ -96,3 +96,8 @@
 
 #SQLite
 **/*.sqlite
+STIN-semestral.sqlite-journal
+!/STIN-semestral.sqlite
+
+#Zip files
+**/*.zip
